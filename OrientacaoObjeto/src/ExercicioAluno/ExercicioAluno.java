@@ -5,24 +5,28 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class ExercicioAluno {
+	
+	static Scanner input = new Scanner(System.in);
+	Random geraRandom = new Random();
+	
+	static ArrayList<Aluno> alunos; 
+	
+	int totalAprovados = 0;
+	int totalReprovados = 0;
+
+	static Aluno maiorMedia = new Aluno();
+	static Aluno menorMedia = new Aluno();
 
 	public static void main(String[] args) {
 		
-		Scanner input = new Scanner(System.in);
-		Random geraRandom = new Random();
+
+		
 		
 		System.out.print("Quantos alunos possuem na sala? ");
 		int qtd = input.nextInt();
 
-		ArrayList<Aluno> alunos = new ArrayList<>(qtd); 
-		
-		int totalAprovados = 0;
-		int totalReprovados = 0;
-		
-		String alunoMaiorNota = null;
-		String alunoMenorNota  = null;
-		double maiorNota = 0;
-		double menorNota = 0;
+		ArrayList<Aluno> alunos = new ArrayList<>(qtd);
+
 		
 		for (int i = 0; i < qtd; i++) {
 			System.out.print("Insira o nome do aluno: ");
@@ -59,62 +63,55 @@ public class ExercicioAluno {
 			System.out.println("Aluno está: " + alunos.get(i).getStatus());
 			
 		}
+		System.out.println("#####################");
+		System.out.println("-- ALUNOS APROVADOS --");
+		System.out.println("#####################");
+		for (int i = 0; i < qtd; i++) {
+			System.out.println("");
+			
+			double media = (alunos.get(i).getMedia());
+			if (media > 5) {
+				System.out.println("Aluno: " + alunos.get(i).getNome());
+				System.out.println("Média: " + alunos.get(i).getMedia());
+			} 
+		}
 		
+		System.out.println("\n######### ALUNOS REPROVADOS #########");
+		for (int i = 0; i < qtd; i++) {
+			System.out.println("");
+			
+			double media = (alunos.get(i).getMedia());
+			if (media < 5) {
+				System.out.println("Aluno: " + alunos.get(i).getNome());
+				System.out.println("Média: " + alunos.get(i).getMedia());
+			} 
+		}
 		
-//		for (int i = 0; i < qtd; i++) {
-//			System.out.println("");
-//			
-//			
-//			System.out.println("Aluno: " + alunos[i]);
-//			System.out.println("Primeira nota: " + notas1[i]);
-//			System.out.println("Segunda nota: " + notas2[i]);
-//			System.out.println("Média: " + media);
-//			
-//			if (media >= 5) {
-//				System.out.println("Status: Aprovado");	
-//			} else {
-//				System.out.println("Status: Reprovado");
-//			}
-//		}
-//		
-//		System.out.println("\n######### RELATÓRIO DETALHADO #########");
-//		
-//		System.out.println("\n######### ALUNOS APROVADOS #########");
-//		for (int i = 0; i < qtd; i++) {
-//			System.out.println("");
-//			
-//			double media = (notas1[i] + notas2[i])/2;
-//			if (media > 5) {
-//				System.out.println("Aluno: " + alunos[i]);
-//				System.out.println("Primeira nota: " + notas1[i]);
-//				System.out.println("Segunda nota: " + notas2[i]);
-//			}
-//		}
-//		
-//		System.out.println("\n######### ALUNOS REPROVADOS #########");
-//		for (int i = 0; i < qtd; i++) {
-//			System.out.println("");
-//			
-//			double media = (notas1[i] + notas2[i])/2;
-//			if (media < 5) {
-//				System.out.println("Aluno: " + alunos[i]);
-//				System.out.println("Primeira nota: " + notas1[i]);
-//				System.out.println("Segunda nota: " + notas2[i]);
-//			}
-//		}
-//		
-//		System.out.println("\n######### MAIOR NOTA #########");
-//		for (int i = 0; i < qtd; i++) {
-//			System.out.println("");
-//			
-//			double media = (notas1[i] + notas2[i])/2;
-//			if (media < 5) {
-//				System.out.println("Aluno: " + alunos[i]);
-//				System.out.println("Primeira nota: " + notas1[i]);
-//				System.out.println("Segunda nota: " + notas2[i]);
-//			}
-//		}
-//   
+		System.out.println("\n######### MAIOR NOTA #########");
+		
+		Aluno alunoMaiorMedia = new Aluno();
+		for (int i = 0; i < qtd; i++) {
+			System.out.println(maiorMedia.getMedia());
+			if (alunos.get(i).getMedia() > maiorMedia.getMedia()) {
+				maiorMedia = alunos.get(i);
+			}
+		}
+
+		System.out.println("Aluno: " + alunoMaiorMedia.getNome());
+		System.out.println("Média: " + alunoMaiorMedia.getMedia());
+		
+		System.out.println("\n######### MENOR NOTA #########");
+		
+		Aluno alunoMenorMedia = new Aluno();
+		for (int i = 0; i < qtd; i++) {
+			if (alunos.get(i).getMedia() < maiorMedia.getMedia()) {
+				menorMedia = alunos.get(i);
+			}
+		}
+
+		System.out.println("Aluno: " + alunoMenorMedia.getNome());
+		System.out.println("Média: " + alunoMenorMedia.getMedia());
+		   
 //		System.out.println("\n######### QTD APROVADOS E REPROVADOS #########");
 //		for (int i = 0; i < qtd; i++) {
 //			double media = (notas1[i] + notas2[i])/2;
@@ -151,11 +148,5 @@ public class ExercicioAluno {
 		
 	}
 	
-	public void validaNota(double nota) {
-		if (nota < 0  && nota > 10){
-			System.out.println("Insira uma nota válida");
-		}			 
-	}
-
 }
 

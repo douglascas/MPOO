@@ -10,6 +10,7 @@ public class Aluno {
 	
 	private double nota3;
 	
+	// Status: Aprovado ou Reprovado
 	private String status;
 	
 	
@@ -54,8 +55,9 @@ public class Aluno {
 	}
 
 	public double getMedia() {
+		// Atribui o cálculo da média à variável e depois retorna ela com o valor calculado.
 		double media = (((this.getNota1()*1.3) + (this.getNota2()*1.3) + (this.getNota3()*1.4)) / 3); 
-		return Double.valueOf(media).;
+		return media;
 	}
 
 	private void constructor(String nome) {
