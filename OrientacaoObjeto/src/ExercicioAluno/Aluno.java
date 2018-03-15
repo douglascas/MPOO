@@ -10,7 +10,6 @@ public class Aluno {
 	
 	private double nota3;
 	
-	// Status: Aprovado ou Reprovado
 	private String status;
 	
 	
@@ -26,8 +25,8 @@ public class Aluno {
 		return nota1;
 	}
 
-	public void setNota1(double nota1) {
-		this.nota1 = nota1;
+	public void setNota1(double nota1) throws Exception {
+		this.nota1 = checkNota(nota1);
 	}
 	
 	public double getNota2() {
@@ -55,12 +54,16 @@ public class Aluno {
 	}
 
 	public double getMedia() {
-		// Atribui o cálculo da média à variável e depois retorna ela com o valor calculado.
 		double media = (((this.getNota1()*1.3) + (this.getNota2()*1.3) + (this.getNota3()*1.4)) / 3); 
-		return media;
+		return Double.valueOf(media);
+	}
+	
+	public double checkNota(double nota) throws Exception {
+		if (nota < 0 || nota > 10 ) {
+			throw new Exception("Nota Inválida.");
+		}
+		
+		return nota;
 	}
 
-	private void constructor(String nome) {
-		this.nome = nome;
-	}
 }
