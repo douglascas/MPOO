@@ -1,0 +1,9 @@
+http://facul.net/damatta/web/estatistica/aula0/
+
+# Abrir arquivos em R
+
+ler arquivo na R =>  `dados = read.csv("C:\\Users\\172081264\\Desktop\\Dados estatisticos\\ex1.csv")`
+dados = dados = read.csv("C:\\Users\\172081264\\Desktop\\Dados estatisticos\\ex1.csv")
+dados # imprime as informações em dados
+hist(dados$altura) # gera um histograma de altura. É acessado pelo $...
+
