@@ -55,12 +55,12 @@ public class Aluno {
 
 	public double getMedia() {
 		double media = (((this.getNota1()*1.3) + (this.getNota2()*1.3) + (this.getNota3()*1.4)) / 3); 
-		return Double.valueOf(media);
+		return Double.valueOf(media).shortValue();
 	}
 	
 	public double checkNota(double nota) throws Exception {
 		if (nota < 0 || nota > 10 ) {
-			throw new Exception("Nota Inv·lida.");
+			throw new Exception("Nota Inv√°lida.");
 		}
 		
 		return nota;
