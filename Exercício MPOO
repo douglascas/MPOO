@@ -1,0 +1,15 @@
+Criar aluno (nota1, nota2, nota3, media)
+Criar repositório Aluno (usando arraylist)
+Criar livro
+	Emprestar
+	Devolver
+
+Criar relação entre Aluno e Livro (emprestar)
+Cadastrar 35 alunos 
+Cadastrar 20 Livros
+Fazer emprestimo de 20 livros (1 livro para 1 aluno)
+Calcular os status do aluno
+Exibir (nome, nota1, nota2, nota3, media, aprovado/reprovado, tem/não tem livro)
+	se tiver livro ("Nome do livro")
+Imprimir todos e apenas os livros que não estão emprestados
+
