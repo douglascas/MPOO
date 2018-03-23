@@ -1,79 +1,93 @@
 package ExercicioAluno;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class ExercicioAluno {
 
 	private static Scanner input;
+	private static Random random = new Random();
 
 	public static void main(String[] args) throws Exception {
 		
-		input = new Scanner(System.in);
+		// Vai gerar notas aleatórias de 0 a 10. Não está gerando em double. Somente inteiros.		
+		random = new Random();
 		
-		System.out.print("Quantos alunos possuem na sala? ");
-		int qtd = input.nextInt();
+		RepositorioAlunos repositorio = new RepositorioAlunos(); 
 
-		RepositorioAlunos repositorio = new RepositorioAlunos(qtd); 
-
-		for (int i = 0; i < qtd; i++) {
-			System.out.print("Insira o nome do aluno: ");
-			Aluno aluno = new Aluno(); 			
-			aluno.setNome(input.next());
-			System.out.print("Insira a primeira nota do aluno " + aluno.getNome() + ": ");
-			aluno.setNota1(checkNota(aluno));		
-			System.out.print("Insira a segunda nota do aluno " + aluno.getNome() + ": ");
-			aluno.setNota2(checkNota(aluno));
-			System.out.print("Insira a terceira nota do aluno " + aluno.getNome() + ": ");
-			aluno.setNota3(checkNota(aluno));		
-
-			if (aluno.getMedia() >= 5) {
-				aluno.setStatus("Aprovado");
-			} else {
-				aluno.setStatus("Reprovado");
-			}
-			
+		for (int i = 0; i < 5; i++) {
+			Aluno aluno = new Aluno("Aluno" + i, random.nextInt(10), random.nextInt(10), random.nextInt(10)); 	
 			repositorio.inserir(aluno);
-						
 		}
 		
-		System.out.println("\n######### RELATÃ“RIO #########");
+		System.out.println("\n######### RELATÓRIO #########\n");
 		for (Aluno aluno : repositorio.getAlunos()) {
 			System.out.println("Aluno: " + aluno.getNome());
-			System.out.println("Primeira nota: " + aluno.getNota1());
-			System.out.println("Segunda nota: " + aluno.getNota2());
+			System.out.println("Primeira nota: " + aluno.getNota1()); 
+			System.out.println("Segunda nota: " + aluno.getNota2()); 
 			System.out.println("Terceira nota: " + aluno.getNota3());
-			System.out.println("MÃ©dia do aluno: " + aluno.getMedia());
-			System.out.println("Aluno estÃ¡: " + aluno.getStatus() + "\n");
+			System.out.println("O aluno está " + aluno.getStatus() + " com média: " + aluno.getMedia());
+			System.out.println();
 		}
 		
-		System.out.println("\n######### RELATÃ“RIO DETALHADO #########");
+		System.out.println("######### RELATÓRIO DETALHADO #########\n");
 		
-		System.out.println("\n - ALUNOS APROVADOS");
+		alunosAprovados(repositorio);
+		
+		alunosReprovados(repositorio);
+		
+		melhoresMedias(repositorio);
+		
+	}
+	
+	static void alunosAprovados(RepositorioAlunos repositorio) {
+		System.out.println("- ALUNOS APROVADOS\n ");
+		int countAprovados = 0; 
+		int count = 0; // Permite que a mensagem só seja executada a partir do segundo loop
+		
 		for (Aluno aluno : repositorio.getAlunos()) {
-			if (aluno.getMedia() >= 5) {
+			if (aluno.getStatus() == "Aprovado") {
 				System.out.println("Aluno: " + aluno.getNome());
-				System.out.println("MÃ©dia: " + aluno.getMedia());
-				System.out.println("Status: " + aluno.getStatus());
+				System.out.println("Média: " + aluno.getMedia());
+				countAprovados++;
+				System.out.println();
 			} 
+			count++;
 		}
+		if (count > 0 && countAprovados == 0) {
+				System.out.println("Não há alunos aprovados.\n");
+		}
+	}
+	
+	static void alunosReprovados(RepositorioAlunos repositorio) {
 		
-		System.out.println("\n - ALUNOS REPROVADOS");
+		System.out.println("- ALUNOS REPROVADOS\n");
+		int countReprovados = 0;
+		int count = 0; // Permite que a mensagem só seja executada a partir do segundo loop
+		
 		for (Aluno aluno : repositorio.getAlunos()) {
-			if (aluno.getMedia() < 5) {
+			if (aluno.getStatus() == "Reprovado") {
 				System.out.println("Aluno: " + aluno.getNome());
-				System.out.println("MÃ©dia: " + aluno.getMedia());
-				System.out.println("Status: " + aluno.getStatus());
+				System.out.println("Média: " + aluno.getMedia());
+				countReprovados++;
+				System.out.println();
 			}
+			count++;
 		}
-
-		System.out.println("\n - MELHORES MÃ‰DIAS");
+		if (count > 0 && countReprovados == 0) {
+			System.out.println("Não há alunos reprovados.\n");
+			
+		} 
+	}
+	
+	static void melhoresMedias(RepositorioAlunos repositorio) {
+		System.out.println("- MELHORES MÉDIAS\n");
 		for (Aluno aluno: repositorio.getClassificacaoAlunos()) {
 			System.out.println(aluno.getNome() + " - " + aluno.getMedia());;	
 		}
 		
-		System.out.println("\n######### QTD APROVADOS E REPROVADOS #########");
+		System.out.println("\n######### QTD APROVADOS E REPROVADOS #########\n");
 		repositorio.getAlunosReprovadosAprovados();
-		
 	}
 
 	
@@ -81,12 +95,12 @@ public class ExercicioAluno {
 	static double checkNota(Aluno aluno) throws Exception {
 		input = new Scanner(System.in);
 		double notaEntrada = 0D;
-		// Permite que a mensagem de erro sÃ³ seja executada a partir da segunda chamada de input
+		// Permite que a mensagem de erro só seja executada a partir da segunda chamada de input
 		int counter = 0;
 		
 		do {
 			if (counter > 0) {
-				System.out.print("Nota invÃ¡lida. Informe uma nota vÃ¡lida: ");
+				System.out.print("Nota inválida. Informe uma nota válida: ");
 			}
 			notaEntrada = input.nextDouble();
 			counter++;

@@ -10,9 +10,17 @@ public class Aluno {
 	
 	private double nota3;
 	
-	private String status;
+	private Livro livro;
 	
+	public Aluno() { }
 	
+	public Aluno(String nome, double nota1, double nota2, double nota3) {
+		this.nome = nome;
+		this.nota1 = nota1;
+		this.nota2 = nota2;
+		this.nota3 = nota3;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -46,11 +54,11 @@ public class Aluno {
 	}	
 
 	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+		if (this.getMedia() >= 5) {
+			return "Aprovado";
+		} else {
+			return "Reprovado";
+		}
 	}
 
 	public double getMedia() {
@@ -60,10 +68,18 @@ public class Aluno {
 	
 	public double checkNota(double nota) throws Exception {
 		if (nota < 0 || nota > 10 ) {
-			throw new Exception("Nota Inv√°lida.");
+			throw new Exception("Nota Inv·lida.");
 		}
 		
 		return nota;
+	}
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public void setLivro(Livro livro) {
+		this.livro = livro;
 	}
 
 }

@@ -9,8 +9,8 @@ public class RepositorioAlunos {
 	private int totalReprovados = 0;
 	private ArrayList<Aluno> alunos; 
 	
-	public RepositorioAlunos (int qtd) {
-		this.alunos = new ArrayList<>(qtd);
+	public RepositorioAlunos () {
+		this.alunos = new ArrayList<>();
 	}
 	
 	public void inserir(Aluno aluno) {
@@ -51,7 +51,7 @@ public class RepositorioAlunos {
 	
 	public void getAlunosReprovadosAprovados() {
 		for (Aluno aluno : getAlunos()) {
-			if (aluno.getMedia() > 5) {
+			if (aluno.getMedia() >= 5) {
 				totalAprovados = totalAprovados + 1;
 			} else {
 				totalReprovados = totalReprovados + 1;
@@ -87,7 +87,7 @@ public class RepositorioAlunos {
 	}
 
 	public ArrayList<Aluno> getClassificacaoAlunos() {
-		// Funciona como um índice para adicionar à lista quando comparado com ele
+		// Funciona como um �ndice para adicionar a lista quando comparado com ele
 		Aluno maior = new Aluno();
 
 		ArrayList<Aluno> alunosMaioresMedias = new ArrayList<Aluno>();
